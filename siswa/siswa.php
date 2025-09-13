@@ -6,7 +6,7 @@ if (!isset($_SESSION['email'])) {
 }
 include "../koneksi.php";
 
-$result = mysqli_query($koneksi, "SELECT * FROM Guru ORDER BY NamaLengkap ASC");
+$result = mysqli_query($koneksi, "SELECT * FROM Siswa ORDER BY NamaLengkap ASC");
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -31,7 +31,7 @@ $result = mysqli_query($koneksi, "SELECT * FROM Guru ORDER BY NamaLengkap ASC");
         </a>
       </li>
       <li>
-        <a href="#" class="nav-link text-white">
+        <a href="/siswa/siswa.php" class="nav-link text-white">
           <i class="fas fa-user-graduate me-2"></i> Data Siswa
         </a>
       </li>
@@ -49,8 +49,8 @@ $result = mysqli_query($koneksi, "SELECT * FROM Guru ORDER BY NamaLengkap ASC");
     </nav>
       <div class="container-fluid mt-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
-          <h2><i class="fas fa-users me-2"></i> Data Guru</h2>
-          <a href="tambah_guru.php" class="btn btn-primary"><i class="fas fa-plus me-2"></i>Tambah Guru</a>
+          <h2><i class="fas fa-user-graduate me-2"></i> Data Siswa</h2>
+          <a href="tambah_siswa.php" class="btn btn-primary"><i class="fas fa-plus me-2"></i>Tambah Siswa</a>
         </div>
 
         <div class="card shadow-sm border-0">
@@ -59,9 +59,10 @@ $result = mysqli_query($koneksi, "SELECT * FROM Guru ORDER BY NamaLengkap ASC");
               <thead class="table-dark">
                 <tr>
                   <th>No</th>
-                  <th>NIP</th>
+                  <th>NIS</th>
                   <th>Nama Lengkap</th>
-                  <th>Jabatan</th>
+                  <th>Kelas</th>
+                  <th>Jenis Kelamin</th>
                   <th>Aksi</th>
                 </tr>
               </thead>
@@ -71,12 +72,13 @@ $result = mysqli_query($koneksi, "SELECT * FROM Guru ORDER BY NamaLengkap ASC");
                 while ($row = mysqli_fetch_assoc($result)) { ?>
                   <tr>
                     <td><?= $no++; ?></td>
-                    <td><?= $row['NIP']; ?></td>
+                    <td><?= $row['NIS']; ?></td>
                     <td><?= $row['NamaLengkap']; ?></td>
-                    <td><?= $row['Jabatan']; ?></td>
+                    <td><?= $row['Kelas']; ?></td>
+                    <td><?= $row['JenisKelamin']; ?></td>
                     <td>
-                      <a href="edit_guru.php?nip=<?= $row['NIP']; ?>" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-                      <a href="hapus_guru.php?nip=<?= $row['NIP']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus guru ini?');"><i class="fas fa-trash"></i></a>
+                      <a href="edit_siswa.php?nis=<?= $row['NIS']; ?>" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                      <a href="hapus_siswa.php?nis=<?= $row['NIS']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus siswa ini?');"><i class="fas fa-trash"></i></a>
                     </td>
                   </tr>
                 <?php } ?>

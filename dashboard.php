@@ -14,8 +14,6 @@ if (!isset($_SESSION['email'])) {
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 </head>
 <body class="d-flex">
-
-  <!-- Sidebar -->
   <div class="bg-dark text-white p-3 min-vh-100" style="width:250px;">
     <h4 class="mb-4">Web Sekolah</h4>
     <ul class="nav flex-column mb-auto">
@@ -40,22 +38,15 @@ if (!isset($_SESSION['email'])) {
       <i class="fas fa-sign-out-alt me-2"></i> Logout
     </a>
   </div>
-
-  <!-- Content -->
   <div class="flex-grow-1 d-flex flex-column">
-    <!-- Top Navbar -->
     <nav class="navbar bg-white border-bottom px-3">
       <span class="ms-auto">
         <i class="fas fa-user-circle me-2"></i> <?php echo $_SESSION['nama']; ?>
       </span>
     </nav>
-
-    <!-- Dashboard Content -->
     <div class="container-fluid mt-4">
       <h2 class="mb-4">Dashboard</h2>
-
       <div class="row g-4">
-        <!-- Card Data Guru -->
         <div class="col-md-6">
           <div class="card">
             <div class="card-body d-flex align-items-center">
@@ -69,7 +60,6 @@ if (!isset($_SESSION['email'])) {
             </div>
           </div>
         </div>
-        <!-- Card Data Siswa -->
         <div class="col-md-6">
           <div class="card">
             <div class="card-body d-flex align-items-center">

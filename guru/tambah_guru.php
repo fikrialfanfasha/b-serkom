@@ -6,7 +6,20 @@ if (!isset($_SESSION['email'])) {
 }
 include "../koneksi.php";
 
-$result = mysqli_query($koneksi, "SELECT * FROM Guru ORDER BY NamaLengkap ASC");
+if ($_POST) {
+  $nip = $_POST['nip'];
+  $nama_lengkap = $_POST['nama_lengkap'];
+  $jabatan = $_POST['jabatan'];
+  
+  $query = "INSERT INTO Guru (NIP, NamaLengkap, Jabatan) VALUES ('$nip', '$nama_lengkap', '$jabatan')";
+  
+  if (mysqli_query($koneksi, $query)) {
+    header("Location: guru.php");
+    exit();
+  } else {
+    $error = "Error: " . mysqli_error($koneksi);
+  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -49,39 +62,40 @@ $result = mysqli_query($koneksi, "SELECT * FROM Guru ORDER BY NamaLengkap ASC");
     </nav>
       <div class="container-fluid mt-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
-          <h2><i class="fas fa-users me-2"></i> Data Guru</h2>
-          <a href="tambah_guru.php" class="btn btn-primary"><i class="fas fa-plus me-2"></i>Tambah Guru</a>
+          <h2><i class="fas fa-plus me-2"></i> Tambah Guru</h2>
+          <a href="guru.php" class="btn btn-secondary"><i class="fas fa-arrow-left me-2"></i>Kembali</a>
         </div>
+
+        <?php if (isset($error)) { ?>
+          <div class="alert alert-danger" role="alert">
+            <?= $error; ?>
+          </div>
+        <?php } ?>
 
         <div class="card shadow-sm border-0">
           <div class="card-body">
-            <table class="table table-bordered table-striped">
-              <thead class="table-dark">
-                <tr>
-                  <th>No</th>
-                  <th>NIP</th>
-                  <th>Nama Lengkap</th>
-                  <th>Jabatan</th>
-                  <th>Aksi</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php
-                $no = 1;
-                while ($row = mysqli_fetch_assoc($result)) { ?>
-                  <tr>
-                    <td><?= $no++; ?></td>
-                    <td><?= $row['NIP']; ?></td>
-                    <td><?= $row['NamaLengkap']; ?></td>
-                    <td><?= $row['Jabatan']; ?></td>
-                    <td>
-                      <a href="edit_guru.php?nip=<?= $row['NIP']; ?>" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-                      <a href="hapus_guru.php?nip=<?= $row['NIP']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus guru ini?');"><i class="fas fa-trash"></i></a>
-                    </td>
-                  </tr>
-                <?php } ?>
-              </tbody>
-            </table>
+            <form method="POST">
+              <div class="mb-3">
+                <label for="nip" class="form-label">NIP</label>
+                <input type="text" class="form-control" id="nip" name="nip" required>
+              </div>
+              <div class="mb-3">
+                <label for="nama_lengkap" class="form-label">Nama Lengkap</label>
+                <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" required>
+              </div>
+              <div class="mb-3">
+                <label for="jabatan" class="form-label">Jabatan</label>
+                <input type="text" class="form-control" id="jabatan" name="jabatan" required>
+              </div>
+              <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">
+                  <i class="fas fa-save me-2"></i>Simpan
+                </button>
+                <a href="guru.php" class="btn btn-secondary">
+                  <i class="fas fa-times me-2"></i>Batal
+                </a>
+              </div>
+            </form>
           </div>
         </div>
 

@@ -1,12 +1,12 @@
 <?php
-$host = "localhost";   // biasanya localhost
-$user = "root";        // user MySQL (default: root)
-$pass = "";            // password MySQL (kosong kalau default XAMPP)
-$db   = "web_sekolah"; // nama database
+$host = "localhost";   
+$user = "root";        
+$pass = "";            
+$db   = "web_sekolah"; 
 
 $koneksi = mysqli_connect($host, $user, $pass, $db);
 
-// cek koneksi
+
 if (!$koneksi) {
     die("Koneksi gagal: " . mysqli_connect_error());
 }
